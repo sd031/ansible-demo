@@ -1,0 +1,33 @@
+- name: The task name to make things clearly
+  become: yes
+  become_method: sudo
+  become_user: root
+  check_mode: yes
+  diff: no
+  remote_user: ansible
+  ignore_errors: True
+  import_tasks: more_handlers
+  include_tasks: other-tasks.yml
+  notify: restart apache
+  register: my_register
+  changed_when: False
+  failed_when: False
+  vars:
+    - myvar: toto
+      myfiles:
+       -  default.conf
+  loop:
+    - item1
+    - ["item2", "item3"]
+    - { name: "item4", description: "Desc Item 4" }
+  when:
+    - my_register is defined
+    - ansible_distribution == "CentOS"
+    - ansible_distribution_major_version == "7" 
+  block:
+    - name: Task to run in block
+      ...
+  rescue:
+    - name: Task when block failed
+  always:
+    - name: Task always run before/after block

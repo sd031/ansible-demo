@@ -1,0 +1,22 @@
+- hosts: localhost
+  gather_facts: False
+
+  tasks:
+
+    - name: Provision a set of instances
+      ec2:
+         key_name: my_key
+         group: test
+         instance_type: t2.micro
+         image: "{{ ami_id }}"
+         wait: true
+         exact_count: 5
+         count_tag:
+            Name: Demo
+         instance_tags:
+            Name: Demo
+      register: ec2
+
+    - name: Add all instance public IPs to host group
+      add_host: hostname={{ item.public_ip }} groups=ec2hosts
+      loop: "{{ ec2.instances }}"

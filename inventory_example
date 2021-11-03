@@ -1,0 +1,19 @@
+#File path: /etc/ansible/hosts (or custom location by: -i /path/to/file)
+#un-grouped
+192.0.2.40
+192.0.3.56
+aserver.example.org
+bserver.example.org
+#by group called appservers
+[appservers]
+sample1.example.com ansible_host = 10.0.0.3 #ssh to 10.0.0.3
+sample2.example.com ansible_ssh_user = xyz #ssh as user xyz
+#host (DNS will resolve automatically)
+[dbservers]
+one.example.com
+two.example.com
+three.example.com
+#dev_servers1 is a group containing other groups
+[dev_servers1:children] 
+appservers 
+dbservers

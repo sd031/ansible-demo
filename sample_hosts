@@ -1,0 +1,23 @@
+server.domain.fr
+server[01-09].domain.fr
+
+rhel01 rhel01.domain.fr
+deb01 deb01.domain.fr
+arch01 arch01.domain.fr
+win01 win01.domain.fr
+
+[redhat]
+rhel01
+
+[debian]
+deb01
+
+[linux:children]
+redhat
+debian
+
+[linux]
+arch01
+
+[windows]
+win01

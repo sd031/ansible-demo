@@ -1,0 +1,55 @@
+- hosts: webservers
+  accelerate: no
+  accelerate_port: 5099
+  ansible_connection: local
+  any_errors_fatal: True
+  become: yes
+  become_method: su
+  become_user: postgress
+  become_flags: True
+  debugger: on_failed
+  gather_facts: no
+  max_fail_percentage: 30
+  order: sorted
+  remote_user: root
+  serial: 5
+  strategy: debug
+  vars:
+    http_port: 80
+  vars_files:
+    - "vars.yml"
+  vars_prompt:
+    - name: "my_password2"
+      prompt: "Enter password2"
+      default: "secret"
+      private: yes
+      encrypt: "md5_crypt"
+      confirm: yes
+      salt: 1234
+      salt_size: 8
+  tags: 
+    - stuff
+  pre_tasks:
+    - <task>
+  roles:
+    - common
+    - common
+      vars:
+        port: 5000
+      when: "bar == 'Baz'"
+      tags : [one, two]
+    - common
+    - { role: common, port: 5000, when: "bar == 'Baz'", tags :[one, two] }
+  tasks:
+    - include: tasks.yaml
+    - include: tasks.yaml
+      when: day == 'Thursday'
+      vars:
+        foo: aaa 
+        baz:
+          - z
+          - y
+    - { include: tasks.yaml, foo: zzz, baz: [a,b]}
+    - <task>
+  post_tasks:
+    - <task>
