@@ -1,0 +1,6 @@
+
+---
+- name: Installl and Verify apache installation
+- hosts: app_servers
+  vars:
+       app_path: "{{ base_path }}/22"
