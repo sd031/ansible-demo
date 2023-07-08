@@ -1,6 +1,6 @@
 ---
 - name: Installl and Verify apache installation
-  hosts: appservers
+  hosts: all
   vars:
     http_port: 80
     max_clients: 200
@@ -18,3 +18,6 @@
       name: apache2
       state: started
 
+  - name: Create a simple file
+    ansible.builtin.command:
+      cmd: touch /home/ubuntu/sample_file 
