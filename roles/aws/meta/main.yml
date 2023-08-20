@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: Your Name
+  description: Role to manage EC2 and S3
+  company: Your Company
+  license: license (MIT, GPL-2.0, etc.)
+  min_ansible_version: 2.4
+  platforms:
+  - name: Amazon
+    versions:
+    - all
+  galaxy_tags:
+    - aws
+    - ec2
+    - s3
+dependencies: []

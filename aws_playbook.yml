@@ -1,0 +1,6 @@
+---
+- name: AWS Operations Playbook
+  hosts: localhost
+  gather_facts: False
+  roles:
+    - aws

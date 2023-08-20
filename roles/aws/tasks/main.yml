@@ -1,0 +1,36 @@
+---
+# Create EC2 instance
+- name: Launch EC2 instance
+  ec2:
+    key_name: mykey
+    instance_type: t2.micro
+    image: ami-123456
+    wait: yes
+    group: webserver
+    count: 1
+    vpc_subnet_id: subnet-29e63245
+    assign_public_ip: yes
+  register: ec2
+
+# Create S3 bucket
+- name: Create S3 bucket
+  aws_s3:
+    bucket: mybucket
+    mode: create
+    permission: private
+
+# Upload file to S3
+- name: Upload to S3
+  aws_s3:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    src: /path/to/myfile.txt
+    mode: put
+
+# Download file from S3
+- name: Download from S3
+  aws_s3:
+    bucket: mybucket
+    object: /my/desired/key.txt
+    dest: /path/on/local/machine.txt
+    mode: get

@@ -1,0 +1,4 @@
+# You can define variables here and use them in your tasks.
+# For example:
+ec2_instance_type: t2.micro
+s3_bucket_name: mybucket
